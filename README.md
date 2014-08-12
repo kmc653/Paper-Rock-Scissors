@@ -1,4 +1,4 @@
 Paper-Rock-Scissors
 ===================
 
-This is assignment 1 in week 1 of course 1
+This is the assignment 2 in week 1 of course 1
