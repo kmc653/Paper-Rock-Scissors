@@ -1,73 +1,35 @@
-def tie
-  puts "It's a tie."
+def print_winner_msg(msg)
+  case msg
+  when 'p'
+    puts "Paper wraps Rock!"
+  when 's'
+    puts "Scissors cut Paper"
+  when 'r'
+    puts "Rock breaks Scissors"
+  end
 end
 
-def paper_w_rock
-  puts "Paper wraps Rock!"
-end
-
-def scissors_c_paper
-  puts "Scissors cut Paper"
-end
-
-def rock_b_scissors
-  puts "Rock breaks Scissors"
-end
-
-def com_win
-  puts "Computer won!"
-end
-
-def you_win
-  puts "You won!"
-end
-
-puts "Play Paper Rock Scissors!"
+CHOICE = {'p' => 'Paper', 'r' => 'Rock', 's' => 'Scissors'}
 
 begin
   begin
     puts "Choose one: (P/R/S)"
-    choice = gets.chomp   #stored player's choice
-    com_choice = ["Paper", "Rock", "Scissors"].sample   #computer chooses randomly in an array
+    choice = gets.chomp.downcase   #stored player's choice
+  end  until CHOICE.keys.include?(choice)
 
-    if choice == 'P' || choice == 'p'
-      pick = "Paper"
-      break
-    elsif choice == 'R' || choice == 'r'
-      pick = "Rock"
-      break
-    elsif choice == 'S' || choice == 's'
-      pick = "Scissors"
-      break
-    end
-  end while true
-
-  puts "You picked #{pick} and computer picked #{com_choice}"
+  com_choice = CHOICE.keys.sample   #computer chooses randomly in an array
+  puts "You picked #{CHOICE[choice]} and computer picked #{CHOICE[com_choice]}"
   
-    if pick == "Paper" && com_choice == "Paper" || pick == "Rock" && com_choice == "Rock" || pick == "Scissors" && com_choice == "Scissors"
-      tie
-    elsif pick == "Paper" && com_choice == "Rock"
-      paper_w_rock
-      you_win
-    elsif pick == "Rock" && com_choice == "Paper"
-      paper_w_rock
-      com_win
-    elsif pick == "Paper" && com_choice == "Scissors"
-      scissors_c_paper
-      com_win
-    elsif pick == "Scissors" && com_choice == "Paper"
-      scissors_c_paper
-      you_win
-    elsif pick == "Rock" && com_choice == "Scissors"
-      rock_b_scissors
-      you_win
+    if choice == com_choice
+      puts "It's tie."
+    elsif (choice == "p" && com_choice == "r") || (choice == "r" && com_choice == "s") || (choice == "s" && com_choice == "p")
+      print_winner_msg(choice)
+      puts "You won!"
     else
-      rock_b_scissors
-      com_win
+      print_winner_msg(com_choice)
+      puts "Computer won!"
     end
 
     puts "Play again? (Y/N)"
-    decision = gets.chomp
-end while decision == 'Y' || decision == 'y'
-      
-    
+    decision = gets.chomp.downcase
+end while decision == 'y'
